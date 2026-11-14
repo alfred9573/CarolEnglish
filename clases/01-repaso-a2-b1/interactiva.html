@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carol's English Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday: a friendly study session, clear working parts
+   IDEA a school exercise notebook: cobalt cover, red margin line, teacher's red pen
+   PICTURE the worksheet itself, then a level strip A1 to B1 with a marker
+   COLOUR white paper, cobalt cover #1d3fbf, red pen #d7263d, highlighter #ffe14d
+   TYPE Lexend for reading, Kalam for the teacher's handwritten marks
+   LAYOUT cover band with name label, sticky section tabs + progress, one calm column of exercises */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#10131b);--paper:light-dark(#ffffff,#171b26);--ink:light-dark(#16182a,#eef0f7);--soft:light-dark(#5b6075,#a3a9bd);--line:light-dark(#dfe3ee,#2b3142);--cobalt:light-dark(#1d3fbf,#7d9bff);--cover:#1d3fbf;--red:light-dark(#d7263d,#ff6b7d);--hl:#ffe14d;--okbg:light-dark(#e9eeff,#1f2a4d);--badbg:light-dark(#fde8eb,#3a1c24)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 Lexend,system-ui,sans-serif;overflow-x:clip}
+.band{padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:820px;margin:0 auto}
+header{background:var(--cover);color:#fff;padding-top:clamp(24px,4vw,44px);padding-bottom:clamp(24px,4vw,44px)}
+.label{background:#fff;color:#16182a;border-radius:10px;padding:18px 22px;max-width:560px;box-shadow:0 3px 0 #0f2a8f;display:grid;gap:4px}
+.label h1{margin:0;font-size:clamp(30px,6vw,44px);line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.label .row{display:flex;flex-wrap:wrap;gap:4px 18px;color:#4a4f66;font-size:15px}
+.label .row b{color:#16182a}
+.hand{font-family:Kalam,cursive;font-weight:700}
+.label .hand{color:#d7263d;font-size:22px}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:10px;padding-block:8px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1}
+.tabs a{white-space:nowrap;text-decoration:none;color:var(--ink);font-size:14px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);min-height:38px;display:inline-flex;align-items:center;flex:none}
+.tabs a:hover,.tabs a:focus-visible{border-color:var(--cobalt);outline:none}
+.prog{font-size:14px;color:var(--soft);white-space:nowrap}
+.prog b{color:var(--ink)}
+.bar{height:4px;background:var(--line)}
+.bar i{display:block;height:100%;width:0;background:var(--cobalt);transition:width .3s}
+section{padding-block:clamp(26px,4vw,44px);border-bottom:1px solid var(--line);scroll-margin-top:60px}
+.sheet{border-left:2px solid var(--red);padding-left:clamp(14px,3vw,26px)}
+h2{font-size:28px;line-height:1.1;letter-spacing:-.02em;margin:0 0 6px}
+h3{font-size:18px;margin:26px 0 8px}
+.lead{color:var(--soft);margin:0 0 14px}
+.es{color:var(--soft);font-size:14px}
+ol{padding-left:0;list-style:none;margin:0;display:grid;gap:12px;counter-reset:q var(--start,0)}
+ol>li{counter-increment:q;display:grid;grid-template-columns:2.2em minmax(0,1fr);align-items:baseline}
+ol>li::before{content:counter(q) ".";color:var(--soft);font-variant-numeric:tabular-nums}
+input[type=text],textarea,select{font:16px Lexend,system-ui,sans-serif;color:var(--cobalt);background:var(--paper);border:0;border-bottom:2px solid var(--soft);padding:4px 6px;min-height:36px;border-radius:4px 4px 0 0}
+input[type=text]{width:var(--w,9em);max-width:100%}
+textarea{width:100%;min-height:70px;border:1px solid var(--line);border-bottom:2px solid var(--soft);resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--hl);outline-offset:1px;border-bottom-color:var(--cobalt)}
+.ok{background:var(--okbg)!important;border-bottom-color:var(--cobalt)!important}
+.bad{background:var(--badbg)!important;border-bottom-color:var(--red)!important}
+.mark{font-family:Kalam,cursive;font-weight:700;font-size:19px;margin-left:8px;white-space:nowrap}
+.mark.y{color:var(--cobalt)}.mark.n{color:var(--red)}
+.btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:20px}
+button{font:600 16px Lexend,system-ui,sans-serif;min-height:46px;padding:0 20px;border-radius:10px;border:2px solid var(--cobalt);background:var(--cobalt);color:light-dark(#fff,#10131b);cursor:pointer}
+button.ghost{background:transparent;color:var(--cobalt)}
+button:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+button:active{transform:translateY(1px)}
+.score{font-family:Kalam,cursive;font-weight:700;color:var(--red);font-size:24px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}
+.scroll{overflow-x:auto}
+.defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:6px 18px;margin:0 0 14px;padding:12px 14px;border:1px dashed var(--line);border-radius:8px;font-size:15px}
+.story{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+.story h4{margin:0 0 6px;font-size:20px}
+.story p{margin:0 0 10px}
+.tf{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.chip{font:15px Lexend,system-ui,sans-serif;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.chip[aria-pressed=true]{border-color:var(--cobalt);background:var(--okbg);color:var(--cobalt);font-weight:600}
+.chip.right{border-color:var(--cobalt);box-shadow:inset 0 0 0 2px var(--cobalt)}
+.chip.wrong{border-color:var(--red);background:var(--badbg);color:var(--red)}
+.model{display:none;margin-top:6px;font-size:15px;color:var(--cobalt)}
+.show .model{display:block}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 18px;background:var(--paper);margin-bottom:14px}
+.card p{margin:4px 0}
+.phr{color:var(--cobalt);font-style:italic}
+.rub{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center}
+.rub .tf{margin:0}
+.level{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:44px 0 8px}
+.level div{text-align:center;padding:14px 4px;border-radius:8px;background:var(--line);color:var(--soft);font-weight:700;font-size:clamp(15px,3.5vw,20px);position:relative}
+.level div.on{background:var(--cover);color:#fff}
+.level div.on::after{content:"Carol";position:absolute;top:-26px;left:50%;transform:translateX(-50%);font-family:Kalam,cursive;color:var(--red);font-size:20px}
+.verdict{font-size:20px;font-weight:600;margin:8px 0 4px}
+.rows{display:grid;gap:10px;margin-top:16px}
+.rw{display:grid;grid-template-columns:8.5em minmax(0,1fr) 4em;gap:10px;align-items:center;font-size:15px}
+.rw .tr{height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.rw .tr i{display:block;height:100%;background:var(--cobalt);border-radius:6px;transition:width .5s}
+.rw .v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+#resOut{display:none}
+#resOut.show{display:block}
+footer{padding-block:28px;color:var(--soft);font-size:14px}
+@media(max-width:600px){ol>li{grid-template-columns:1.8em minmax(0,1fr)}.rw{grid-template-columns:6.5em minmax(0,1fr) 3.4em}table{font-size:14px}th,td{padding:6px 4px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div class="label">
+      <span class="hand">English notebook</span>
+      <h1>Carol's English Review</h1>
+      <div class="row"><span><b>Level:</b> A2 → B1</span><span><b>Time:</b> 60 min</span><span><b>Lesson:</b> 01</span></div>
+    </div>
+  </div>
+</header>
+<nav class="band">
+  <div class="wrap">
+    <div class="tabs">
+      <a href="#warmup">Warm-up</a><a href="#grammar">Grammar</a><a href="#vocab">Vocabulary</a><a href="#reading">Reading</a><a href="#speaking">Speaking</a><a href="#test">Test</a><a href="#result">Result</a>
+    </div>
+    <span class="prog"><b id="pc">0</b>/57</span>
+  </div>
+  <div class="bar"><i id="pb"></i></div>
+</nav>
+<main class="band"><div class="wrap">
+
+<section id="warmup"><div class="sheet">
+  <h2>1. Warm-up</h2>
+  <p class="lead">Answer with two sentences or more. <span class="es">(Contesta con al menos dos frases.)</span></p>
+  <ol id="wu"></ol>
+</div></section>
+
+<section id="grammar"><div class="sheet">
+  <h2>2. Grammar</h2>
+  <p class="lead">Write the correct form of the verb. <span class="es">(Escribe la forma correcta del verbo.)</span></p>
+  <div class="scroll"><table>
+    <thead><tr><th>Tense</th><th>Use</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Present simple</td><td>Routines, facts</td><td>I work in Toluca.</td></tr>
+      <tr><td>Present continuous</td><td>Now</td><td>I am reading right now.</td></tr>
+      <tr><td>Past simple</td><td>Finished actions</td><td>We went to the beach.</td></tr>
+      <tr><td>Going to</td><td>Plans, evidence</td><td>I'm going to buy a car.</td></tr>
+      <tr><td>Will</td><td>Quick decisions</td><td>I'll call you later.</td></tr>
+      <tr><td>Present perfect</td><td>Experiences, past → now</td><td>I've never been to Japan.</td></tr>
+    </tbody>
+  </table></div>
+  <div id="gr"></div>
+  <div class="btns"><button id="gChk">Check grammar</button><span class="score" id="gSc"></span></div>
+</div></section>
+
+<section id="vocab"><div class="sheet">
+  <h2>3. Vocabulary</h2>
+  <h3>A. Match the word with its definition</h3>
+  <div class="defs" id="defs"></div>
+  <ol id="vm"></ol>
+  <h3>B. Phrasal verbs</h3>
+  <p class="lead">Use: <i>wake up · look for · give up · turn off · pick up · find out</i></p>
+  <ol id="ph"></ol>
+  <div class="btns"><button id="vChk">Check vocabulary</button><span class="score" id="vSc"></span></div>
+  <h3>C. Describe it (out loud)</h3>
+  <p>Describe each word without saying it: <b>airport · weekend · boss · gym · breakfast · holiday</b></p>
+  <p class="phr">It's a place where... / It's something you use to... / It's a person who...</p>
+</div></section>
+
+<section id="reading"><div class="sheet">
+  <h2>4. Reading</h2>
+  <p class="lead">Read the text, then answer. <span class="es">(Lee el texto y contesta.)</span></p>
+  <div class="story">
+    <h4>A New Start</h4>
+    <p>Daniel is 29 years old and he lives in Toluca with his dog, Rocky. He works as an engineer in a factory near the city. Every day he wakes up at 6:00, goes to the gym and then drives to work. He usually finishes at 5:00, but this month he is working late because the factory has a big order.</p>
+    <p>Last year, Daniel decided to learn English. At first it was difficult. He didn't understand movies and he was too nervous to speak. So he started taking online classes three times a week and practicing with a friend from Canada.</p>
+    <p>Now he feels more confident. He has watched more than twenty series in English and he has never missed a class. Next summer he is going to travel to Vancouver to visit his friend. He thinks it will be the best trip of his life.</p>
+  </div>
+  <h3>True or false?</h3>
+  <ol id="tf"></ol>
+  <h3>Answer the questions</h3>
+  <ol id="oq" style="--start:5"></ol>
+  <h3>Grammar hunt</h3>
+  <p class="lead">Find one example of each tense in the text.</p>
+  <ol id="hu"></ol>
+  <div class="btns"><button id="rChk">Check reading</button><span class="score" id="rSc"></span></div>
+</div></section>
+
+<section id="speaking"><div class="sheet">
+  <h2>5. Speaking</h2>
+  <p class="lead">Two role-plays with your teacher. You are the customer.</p>
+  <div class="card">
+    <h3 style="margin-top:0">At a restaurant</h3>
+    <p>Ask for a table for two · ask for a recommendation · order food and a drink · complain: your soup is cold · ask for the bill and pay by card.</p>
+    <p class="phr">Can I have...? / I'd like... / What do you recommend? / Excuse me, my soup is cold. / Can I have the bill, please?</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">A late delivery</h3>
+    <p>Your order was supposed to arrive on Monday. It hasn't arrived and you need it before Friday. Call the supplier, explain the problem and ask for a partial delivery or a discount.</p>
+    <p class="phr">I'm calling about my order. / It was supposed to arrive on Monday. / We really need it by Friday because... / Could you send part of the order? / Let me confirm...</p>
+  </div>
+  <h3>Teacher's score <span class="es">(lo llena el profe: 1 bajo, 3 alto)</span></h3>
+  <div class="rub" id="rub"></div>
+</div></section>
+
+<section id="test"><div class="sheet">
+  <h2>6. Quick test</h2>
+  <p class="lead">8 minutes, no help. Choose one answer. <span class="es">(Sin ayuda, elige una opción.)</span></p>
+  <h3>Part A</h3>
+  <ol id="ta"></ol>
+  <h3>Part B</h3>
+  <ol id="tb" style="--start:12"></ol>
+  <div class="btns"><button id="tChk">Finish test</button><span class="score" id="tSc"></span></div>
+</div></section>
+
+<section id="result"><div class="sheet">
+  <h2>Your result</h2>
+  <p class="lead">Press the button when you finish everything. <span class="es">(Las preguntas sin contestar cuentan como incorrectas.)</span></p>
+  <div class="btns"><button id="res">See my result</button><button class="ghost" id="rst">Start again</button></div>
+  <div id="resOut">
+    <div class="level" id="lv"><div>A1</div><div>A2</div><div>A2+</div><div>B1</div></div>
+    <p class="verdict" id="vd"></p>
+    <p class="es" id="vd2"></p>
+    <div class="rows" id="rows"></div>
+    <h3>Homework</h3>
+    <p>Write 80–100 words: <i>My last vacation and my next plans.</i> Use past simple, present perfect and going to.</p>
+  </div>
+</div></section>
+
+</div></main>
+<footer class="band"><div class="wrap">Lesson 01 · English review A2–B1. Your answers stay saved on this device.</div></footer>
+
+<script>
+{
+const WU=["How are you today? What did you do this morning?","What do you usually do on weekends?","What's something you want to learn this year? Why?"];
+const GG=[["A. Present simple or present continuous?",0,4],["B. Past simple",4,8],["C. Going to or will?",8,11],["D. Comparatives and superlatives",11,14],["E. Present perfect or past simple?",14,18]];
+const G=[
+["She ___ (work) at a bank.",[["works"]],"works"],
+["Right now I ___ (study) English.",[["am studying"]],"am studying"],
+["They usually ___ (not / eat) breakfast.",[["do not eat"]],"don't eat"],
+["Look! It ___ (rain).",[["is raining"]],"is raining"],
+["Yesterday we ___ (go) to the cinema.",[["went"]],"went"],
+["I ___ (not / see) him last week.",[["did not see"]],"didn't see"],
+["___ you ___ (buy) the tickets?",[["did"],["buy"]],"Did ... buy"],
+["She ___ (study) until midnight.",[["studied"]],"studied"],
+["Look at those clouds! It ___ rain.",[["is going to"]],"is going to"],
+["A: I'm thirsty. B: I ___ get you some water.",[["will"]],"'ll / will"],
+["We ___ visit my parents next weekend. We already bought the bus tickets.",[["are going to"]],"are going to"],
+["Mexico City is ___ (big) than Toluca.",[["bigger"]],"bigger"],
+["This is the ___ (good) restaurant in town.",[["best"]],"best"],
+["Steel is ___ (expensive) than plastic.",[["more expensive"]],"more expensive"],
+["I ___ (never / be) to Japan.",[["have never been"]],"have never been"],
+["We ___ (live) here since 2019.",[["have lived","have been living"]],"have lived"],
+["I ___ (finish) the report yesterday.",[["finished"]],"finished"],
+["___ you ever ___ (try) sushi?",[["have"],["tried"]],"Have ... tried"]];
+const DEF=["a person who buys something in a store","the last day to finish something","bags you take on a trip","a plan with times and dates","money you earn for your job","paper you get after you pay","a meeting at a specific time, like with the doctor","when something happens later than planned"];
+const VM=[["deadline",1],["receipt",5],["delay",7],["luggage",2],["appointment",6],["salary",4],["customer",0],["schedule",3]];
+const L="abcdefgh";
+const PH=[
+["I usually ___ at 6 a.m.",[["wake up","get up"]],"wake up"],
+["I'm ___ my keys. Have you seen them?",[["looking for"]],"looking for"],
+["Don't ___! You can do it.",[["give up"]],"give up"],
+["Please ___ the lights when you leave.",[["turn off"]],"turn off"],
+["Can you ___ me ___ at the airport?",[["pick"],["up"]],"pick me up"],
+["I need to ___ what time the store opens.",[["find out"]],"find out"]];
+const TF=[["Daniel lives in Monterrey.",false,"He lives in Toluca."],["He goes to the gym before work.",true,""],["This month he finishes work at 5:00.",false,"This month he is working late."],["At first, learning English was easy.",false,"At first it was difficult."],["His friend lives in Canada.",true,""]];
+const OQ=[["Why is Daniel working late this month?","Because the factory has a big order."],["What two things did he do to improve his English?","He took online classes three times a week and practiced with a friend from Canada."],["What is he going to do next summer?","He's going to travel to Vancouver to visit his friend."]];
+const HU=[["Present simple","he lives / he works"],["Present continuous","he is working late"],["Past simple","decided / didn't understand"],["Present perfect","has watched / has never missed"],["Going to","is going to travel"],["Will","it will be"]];
+const T=[
+["___ you like coffee?",["Do","Does","Are"],0],["My brother ___ in Guadalajara.",["live","living","lives"],2],["There ___ two banks on my street.",["are","is","be"],0],["I ___ TV when you called.",["watched","am watching","was watching"],2],["She ___ to the party last night.",["don't went","didn't go","didn't went"],1],["How ___ water do you drink every day?",["much","many","lot"],0],["This bag is ___ than that one.",["heavyer","more heavy","heavier"],2],["I can't talk now. I ___ dinner.",["cook","cooked","am cooking"],2],["We ___ go to the beach tomorrow. We booked the hotel.",["will","are going to","going"],1],["___ is your birthday? It's in May.",["When","What","Where"],0],["You ___ wear a seatbelt. It's the law.",["can","would","must"],2],["He's ___ tallest person in the office.",["a","the","more"],1],
+["I ___ here for five years.",["have worked","work","am working"],0],["___ you ever ___ to Europe?",["Did / go","Are / going","Have / been"],2],["If it rains, we ___ at home.",["stay","will stay","would stay"],1],["I'm not used to ___ up so early.",["getting","get","got"],0],["This car ___ in Germany.",["made","is making","is made"],2],["She asked me where I ___.",["live","lived","living"],1],["I've lived here ___ 2020.",["since","for","ago"],0],["I stopped ___ because it was bad for my health.",["smoke","to smoke","smoking"],2]];
+const RUB=["Fluency","Grammar","Vocabulary","Pronunciation","Interaction"];
+
+let S={};
+const KEY="carolEnglish01";
+try{S=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){S={}}
+if(window.claude&&window.claude.hot&&window.claude.hot.data&&Object.keys(S).length===0)S=window.claude.hot.data||{};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}prog()};
+try{window.claude&&window.claude.hot&&window.claude.hot.snapshot&&window.claude.hot.snapshot(()=>S)}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const norm=s=>(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/\b(do|does|did|is|are|was|were|have|has)nt\b/g,"$1 not").replace(/won't/g,"will not").replace(/can't/g,"can not").replace(/n't/g," not").replace(/'m\b/g," am").replace(/'re\b/g," are").replace(/'s\b/g," is").replace(/'ve\b/g," have").replace(/'ll\b/g," will").replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim();
+
+const blanks=(p,list)=>list.map((it,i)=>{let j=0;const html=esc(it[0]).split("___").map((part,k,arr)=>k<arr.length-1?part+`<input type="text" id="${p}${i}_${j}" data-k="${p}${i}_${j++}" style="--w:${Math.max(5,it[1][Math.min(j-1,it[1].length-1)][0].length*0.62+2)}em" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer">`:part).join("");return `<li><span>${html}<span class="mark" id="${p}${i}m"></span></span></li>`}).join("");
+
+$("wu").innerHTML=WU.map((q,i)=>`<li><div><div>${q}</div><textarea id="wu${i}" data-k="wu${i}" aria-label="your answer"></textarea></div></li>`).join("");
+$("gr").innerHTML=GG.map(g=>`<h3>${g[0]}</h3><ol style="--start:${g[1]}">${blanks("g",G).split("</li>").slice(g[1],g[2]).join("</li>")}</li></ol>`).join("");
+$("defs").innerHTML=DEF.map((d,i)=>`<div><b>${L[i]})</b> ${d}</div>`).join("");
+$("vm").innerHTML=VM.map((v,i)=>`<li><span><b>${v[0]}</b> → <select id="v${i}" data-k="v${i}" aria-label="definition for ${v[0]}"><option value="">choose</option>${DEF.map((d,k)=>`<option value="${k}">${L[k]}</option>`).join("")}</select><span class="mark" id="v${i}m"></span></span></li>`).join("");
+$("ph").innerHTML=blanks("p",PH);
+$("tf").innerHTML=TF.map((t,i)=>`<li><div><div>${t[0]}</div><div class="tf" data-g="tf${i}"><button type="button" class="chip" data-v="t">True</button><button type="button" class="chip" data-v="f">False</button></div><div class="model">${t[2]}</div></div></li>`).join("");
+$("oq").innerHTML=OQ.map((q,i)=>`<li><div><div>${q[0]}</div><textarea id="oq${i}" data-k="oq${i}" aria-label="your answer"></textarea><div class="model">Model answer: ${q[1]}</div></div></li>`).join("");
+$("hu").innerHTML=HU.map((h,i)=>`<li><div><div>${h[0]}</div><input type="text" id="hu${i}" data-k="hu${i}" style="--w:16em" autocomplete="off" aria-label="${h[0]}"><div class="model">For example: ${h[1]}</div></div></li>`).join("");
+const tq=(from,to)=>T.slice(from,to).map((t,x)=>{const i=x+from;return `<li><div><div>${esc(t[0])}</div><div class="tf" data-g="t${i}">${t[1].map((o,k)=>`<button type="button" class="chip" data-v="${k}">${L[k]}) ${esc(o)}</button>`).join("")}</div></div></li>`}).join("");
+$("ta").innerHTML=tq(0,12);$("tb").innerHTML=tq(12,20);
+$("rub").innerHTML=RUB.map((r,i)=>`<span>${r}</span><div class="tf" data-g="sp${i}">${[1,2,3].map(n=>`<button type="button" class="chip" data-v="${n}">${n}</button>`).join("")}</div>`).join("");
+
+document.querySelectorAll("[data-k]").forEach(el=>{if(S[el.dataset.k]!=null)el.value=S[el.dataset.k];el.addEventListener("input",()=>{S[el.dataset.k]=el.value;save()})});
+const paint=g=>{document.querySelectorAll(`[data-g="${g}"] .chip`).forEach(b=>b.setAttribute("aria-pressed",String(S[g]===b.dataset.v)))};
+document.querySelectorAll("[data-g]").forEach(box=>{const g=box.dataset.g;paint(g);box.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;if(g[0]==="t"&&g[1]!=="f"&&S.testDone)return;S[g]=b.dataset.v;paint(g);save()})});
+
+const scoreBlanks=(p,list,show)=>{let n=0;list.forEach((it,i)=>{let all=true;it[1].forEach((acc,j)=>{const el=$(`${p}${i}_${j}`);const ok=acc.some(a=>norm(a)===norm(el.value));if(!ok)all=false;if(show){el.classList.toggle("ok",ok);el.classList.toggle("bad",!ok)}});if(all)n++;if(show){const m=$(`${p}${i}m`);m.className="mark "+(all?"y":"n");m.textContent=all?"✓":"→ "+it[2]}});return n};
+const scoreVM=show=>{let n=0;VM.forEach((v,i)=>{const el=$("v"+i);const ok=el.value===String(v[1]);if(ok)n++;if(show){el.classList.toggle("ok",ok);el.classList.toggle("bad",!ok);const m=$(`v${i}m`);m.className="mark "+(ok?"y":"n");m.textContent=ok?"✓":"→ "+L[v[1]]}});return n};
+const scoreTF=show=>{let n=0;TF.forEach((t,i)=>{const want=t[1]?"t":"f";if(S["tf"+i]===want)n++;if(show)document.querySelectorAll(`[data-g="tf${i}"] .chip`).forEach(b=>{b.classList.toggle("right",b.dataset.v===want);b.classList.toggle("wrong",S["tf"+i]===b.dataset.v&&b.dataset.v!==want)})});return n};
+const scoreT=(from,to,show)=>{let n=0;for(let i=from;i<to;i++){const want=String(T[i][2]);if(S["t"+i]===want)n++;if(show)document.querySelectorAll(`[data-g="t${i}"] .chip`).forEach(b=>{b.classList.toggle("right",b.dataset.v===want);b.classList.toggle("wrong",S["t"+i]===b.dataset.v&&b.dataset.v!==want)})}return n};
+
+$("gChk").onclick=()=>{S.gDone=1;save();$("gSc").textContent=scoreBlanks("g",G,true)+" / 18"};
+$("vChk").onclick=()=>{S.vDone=1;save();$("vSc").textContent=(scoreVM(true)+scoreBlanks("p",PH,true))+" / 14"};
+$("rChk").onclick=()=>{S.rDone=1;save();$("reading").classList.add("show");$("rSc").textContent=scoreTF(true)+" / 5"};
+$("tChk").onclick=()=>{S.testDone=1;save();const a=scoreT(0,12,true),b=scoreT(12,20,true);$("tSc").textContent=`A ${a}/12 · B ${b}/8`};
+
+const prog=()=>{let n=0;G.forEach((it,i)=>{if(it[1].every((_,j)=>(S[`g${i}_${j}`]||"").trim()))n++});PH.forEach((it,i)=>{if(it[1].every((_,j)=>(S[`p${i}_${j}`]||"").trim()))n++});VM.forEach((_,i)=>{if(S["v"+i])n++});TF.forEach((_,i)=>{if(S["tf"+i])n++});T.forEach((_,i)=>{if(S["t"+i]!=null)n++});$("pc").textContent=n;$("pb").style.width=(n/57*100)+"%"};
+
+const result=()=>{const g=scoreBlanks("g",G,false),v=scoreVM(false)+scoreBlanks("p",PH,false),r=scoreTF(false),a=scoreT(0,12,false),b=scoreT(12,20,false);
+let sp=0,spn=0;RUB.forEach((_,i)=>{if(S["sp"+i]){sp+=+S["sp"+i];spn++}});
+let lvl,txt,es;
+if(a<=6){lvl=0;txt="A1–A2: let's build the basics first.";es="Reforzar bases A1–A2 antes de pasar a B1."}
+else if(a<=9){lvl=1;txt="A2 in progress. Good start!";es="A2 en proceso: repasar los errores de la parte A."}
+else if(b<=3){lvl=1;txt="Solid A2. B1 is the next step.";es="A2 sólido. Lo siguiente es estudiar los temas de la parte B."}
+else if(b<=5){lvl=2;txt="A2+, almost B1. Great work!";es="B1 en proceso: ya domina A2 y va bien en B1."}
+else{lvl=3;txt="B1. Excellent!";es="Ya tiene nivel B1 en gramática."}
+if(spn===5)es+=` Speaking: ${sp}/15 (${sp<=8?"A2 básico":sp<=12?"A2 sólido":"B1"}).`;
+document.querySelectorAll("#lv div").forEach((d,i)=>d.classList.toggle("on",i===lvl));
+$("vd").textContent=txt;$("vd2").textContent=es;
+const R=[["Grammar",g,18],["Vocabulary",v,14],["Reading",r,5],["Test A (A2)",a,12],["Test B (B1)",b,8]];if(spn===5)R.push(["Speaking",sp,15]);
+$("rows").innerHTML=R.map(x=>`<div class="rw"><span>${x[0]}</span><div class="tr"><i style="width:0"></i></div><span class="v">${x[1]} / ${x[2]}</span></div>`).join("");
+$("resOut").classList.add("show");
+requestAnimationFrame(()=>document.querySelectorAll("#rows .rw").forEach((el,i)=>{el.querySelector("i").style.width=(R[i][1]/R[i][2]*100)+"%"}))};
+$("res").onclick=()=>{S.resDone=1;save();result()};
+
+let armed=false;
+$("rst").onclick=()=>{if(!armed){armed=true;$("rst").textContent="Sure? Tap again";setTimeout(()=>{armed=false;$("rst").textContent="Start again"},4000);return}
+S={};try{localStorage.removeItem(KEY)}catch(e){}location.hash="";location.reload()};
+
+const start=()=>{prog();if(S.gDone)$("gChk").onclick();if(S.vDone)$("vChk").onclick();if(S.rDone)$("rChk").onclick();if(S.testDone)$("tChk").onclick();if(S.resDone)result()};
+start();
+}
+</script>
+</body>
+</html>
